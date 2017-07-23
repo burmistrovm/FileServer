@@ -4,10 +4,11 @@
 Server::Server(std::string address, std::string port):
     service(),
     acceptor(service),
-    signals_(service)
+    signalSet(service),
+    handler("./")
 {
-    signals_.add(SIGINT);
-    signals_.add(SIGTERM);
+    signalSet.add(SIGINT);
+    signalSet.add(SIGTERM);
     doStop();
 
     boost::asio::ip::tcp::resolver resolver(service);
@@ -37,13 +38,12 @@ void Server::run() {
 }
 
 void Server::doStop() {
-    signals_.async_wait([this] (const boost::system::error_code& e, int signal_no) {
+    signalSet.async_wait([this] (const boost::system::error_code& e, int signal_no) {
         service.stop();
     });
 }
 
 void Server::accept() {
-    std::cout << "accepted1" << std::endl;
     connection.reset(new Connection(service, handler));
     acceptor.async_accept(connection -> getSocket(),[this] (const boost::system::error_code& e) {
         if (!e) {

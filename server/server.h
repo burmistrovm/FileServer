@@ -17,7 +17,7 @@ public:
 private:
     boost::asio::io_service service;
     boost::asio::ip::tcp::acceptor acceptor;
-    boost::asio::signal_set signals_;
+    boost::asio::signal_set signalSet;
 
     ServerHandler handler;
     ConnectionPtr connection;

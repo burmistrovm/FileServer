@@ -11,6 +11,8 @@ if(Boost_FOUND)
     set(LIBS ${Boost_LIBRARIES})
 endif()
 
-add_executable(${PROJECT_NAME} "main.cpp" "server/server.cpp" "server/connection.cpp" "server/serverhandler.cpp" "http/request.cpp" "http/response.cpp" "http/parser.cpp")
-
+include_directories(headers)
+set(HEADER_FILES server/server.h server/connection.h server/serverhandler.h http/request.h http/parser.h http/header.h http/mime.h)
+set(SOURCE_FILES main.cpp server/server.cpp server/connection.cpp server/serverhandler.cpp http/response.cpp http/parser.cpp http/mime.cpp)
+add_executable(FileServer ${HEADER_FILES} ${SOURCE_FILES})
 target_link_libraries(FileServer -lpthread ${LIBS})

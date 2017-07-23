@@ -2,8 +2,7 @@
 #define HEADER_H
 #include <string>
 
-struct header
-{
+struct header {
   std::string name;
   std::string value;
 };
