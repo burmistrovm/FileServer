@@ -16,9 +16,9 @@ struct mapping
 
 std::string extensionToType(const std::string &extension)
 {
-    for (mapping m: mappings) {
-        if (m.extension == extension) {
-            return m.mime_type;
+    for (mapping* m = mappings; m->extension; ++m) {
+        if (m -> extension == extension) {
+            return m -> mime_type;
         }
     }
     return "text/plain";
