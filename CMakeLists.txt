@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8)
 
 project(FileServer)
 
-set(CMAKE_CXX_STANDARD 14)
+add_compile_options(-std=c++11)
 
 find_package(Boost 1.58.0 REQUIRED system thread)
 
@@ -11,6 +11,6 @@ if(Boost_FOUND)
     set(LIBS ${Boost_LIBRARIES})
 endif()
 
-add_executable(${PROJECT_NAME} "main.cpp" "server/server.cpp" "http/request.cpp" "http/response.cpp")
+add_executable(${PROJECT_NAME} "main.cpp" "server/server.cpp" "server/connection.cpp" "server/serverhandler.cpp" "http/request.cpp" "http/response.cpp" "http/parser.cpp")
 
 target_link_libraries(FileServer -lpthread ${LIBS})
